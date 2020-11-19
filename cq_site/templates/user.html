@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>{{ user.usr_name }}</h1>
+    <h2>Registered: {{ user.usr_registrationdate }}</h2>
+    <h4>User's threads:</h4>
+    <table>
+        <tr>
+            <td><b>Title</b></td>
+            <td><b>Posted:</b></td>
+            <td><b>Category</b></td>
+            <td><b>Votes</b></td>
+        </tr>
+        {% for thread in threads %}
+            <tr>
+                <td><a href='../thread/{{ thread.thr_id }}'>{{ thread.thr_title }}</a></td>
+                <td>{{ thread.thr_postdate }}</td>
+                <td>{{ thread.thr_category.cat_name }}</td>
+                {% for vote in votes %}
+                    {% if vote.0 == thread.thr_title %}
+                        <td>{{ vote.2 }}% upvoted</td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <h4>User's comments:</h4>
+    <table>
+        <tr>
+            <td><b>Comment</b></td>
+            <td><b>Posted:</b></td>
+            <td><b>Thread</b></td>
+            <td><b>Votes</b></td>
+        </tr>
+        {% for comment in comments %}
+            <tr>
+                <td>{{ comment.com_text }}</td>
+                <td>{{ comment.com_postdate }}</td>
+                <td><a href='../thread/{{ comment.com_thrlocation.thr_id }}'>{{ comment.com_thrlocation.thr_title }}</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

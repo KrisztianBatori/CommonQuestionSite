@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Threads</h1>
+    <table>
+        <tr>
+            <td><b>Title</b></td>
+            <td><b>Posted:</b></td>
+            <td><b>Author</b></td>
+            <td><b>Category</b></td>
+            <td><b>Votes</b></td>
+        </tr>
+        {% for thread in threads %}
+            <tr>
+                <td><a href='thread/{{ thread.thr_id }}'>{{ thread.thr_title }}</a></td>
+                <td>{{ thread.thr_postdate }}</td>
+                <td><a href='user/{{ thread.thr_author.usr_id }}'>{{ thread.thr_author.usr_name }}</a></td>
+                <td>{{ thread.thr_category.cat_name }}</td>
+                {% for vote in votes %}
+                    {% if vote.0 == thread.thr_title %}
+                        <td>{{ vote.2 }}% upvoted</td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

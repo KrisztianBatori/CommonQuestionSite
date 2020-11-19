@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>{{ thread.thr_title }}</h1>
+    <h3><a href='../user/{{ thread.thr_author.usr_id }}'>{{ thread.thr_author.usr_name }}</a>: {{ thread.thr_content }}</h3>
+    {% for comment in comments %}
+        <div class="comment">
+            <p><a href='../user/{{ comment.com_author.usr_id }}'>{{ comment.com_author.usr_name }}</a> ( {{ comment.com_postdate }} )</p>
+            <p>{{ comment.com_text }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}

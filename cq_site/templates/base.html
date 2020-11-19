@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <title>CQ - Home page</title>
+    <meta name="Generator" content="Cocoa HTML Writer">
+    <meta name="CocoaVersion" content="1894.4">
+    <link rel="stylesheet", type="text/css" href="{% static 'styles.css'%}">
+</head>
+<body>
+<nav>
+    <h2>Welcome to Common Questions!</h2>
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+    <h4>You are logged in as {{ request.user }}.</h4>
+    <ul>
+        <li><a href="/pages">Home</a></li>
+        {% if request.user.is_authenticated %}
+            <li><a href="/pages/newthread">New question</a></li>
+            <li>Change user settings</li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+        {% else %}
+            <li><a href="/pages/login">Login</a></li>
+            <li><a href="/pages/register">Register</a></li>
+        {% endif %}
+    </ul>
+</nav>
+{% block content %}
+{% endblock %}
+</body>
+</html>
